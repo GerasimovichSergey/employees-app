@@ -18,19 +18,18 @@ class EmployeesListItem extends React.Component {
         );
     }
     
-    onRise = () => {
+    onLike = () => {
         this.setState((prevState) => ({
             like: !prevState.like,
         }))
     }
     
     render() {
-        const classNames = `list-group-item d-flex justify-content-between ${this.state.increase ? 'increase' : ''} ${this.state.like ? 'like' : ''}`;
+        const classNames = `list-group-item d-flex justify-content-between ${this.state.increase ? 'increase' : ''}${this.state.like ? 'like' : ''}`;
         
         return (
             <li className={classNames}>
-                <span className="list-group-item-label" onClick={this.onRise}
-                >
+                <span className="list-group-item-label" onClick={this.onLike}>
                     {this.props.name}
                 </span>
                 <input type="text" className="list-group-item-input" defaultValue={`${this.props.salary} $`} />
@@ -44,6 +43,7 @@ class EmployeesListItem extends React.Component {
                     
                     <button type="button"
                             className="btn-trash btn-sm"
+                            onClick={this.props.onDelete}
                     >
                         <i className="fas fa-trash"></i>
                     </button>
