@@ -38,6 +38,7 @@ class EmployeesAddForm extends React.Component {
                            placeholder="Как его зовут?"
                            onChange={this.onValueChange}
                            value={this.state.name}
+                           required
                     />
                     <input type="number"
                            className="form-control new-post-label"
@@ -45,6 +46,7 @@ class EmployeesAddForm extends React.Component {
                            placeholder="З/П в $?"
                            onChange={this.onValueChange}
                            value={this.state.salary}
+                           required
                     />
                     
                     <button type="submit"
