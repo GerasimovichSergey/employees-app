@@ -20,6 +20,7 @@ class App extends React.Component {
                 { name: 'Wade D.', salary: 3800, increase: false, like: false, id: nextId() },
             ],
             term: '',
+            filterCriteria: 'all',
         };
     }
     
@@ -71,7 +72,7 @@ class App extends React.Component {
     }
     
     searchEmployee = (items, term) => {
-        if (term === 0) {
+        if (term.length === 0) {
             return items;
         }
         
@@ -82,8 +83,24 @@ class App extends React.Component {
         this.setState({ term: term });
     }
     
+    filterEmployees = (employees, filterCriteria) => {
+        switch (filterCriteria) {
+            case 'rise':
+                return employees.filter((employee) => employee.like);
+            case 'salaryMore1000':
+                return employees.filter((employee) => employee.salary > 1000);
+            default:
+                return employees;
+        }
+    }
+    
+    onUpdateFilter = (filterCriteria) => {
+        this.setState({ filterCriteria: filterCriteria });
+    }
+    
     render() {
-        const visibleData = this.searchEmployee(this.state.data, this.state.term);
+        const filteredData = this.filterEmployees(this.state.data, this.state.filterCriteria);
+        const visibleData = this.searchEmployee(filteredData, this.state.term);
         
         return (
             <div className="app">
@@ -91,7 +108,7 @@ class App extends React.Component {
                 
                 <div className="search-panel">
                     <SearchPanel onUpdateSearch={this.onUpdateSearch} />
-                    <AppFilter />
+                    <AppFilter onUpdateFilter={this.onUpdateFilter} />
                 </div>
                 
                 <EmployeesList
